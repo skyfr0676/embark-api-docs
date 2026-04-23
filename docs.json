@@ -37,7 +37,18 @@
       {
         "tab": "Shared",
         "pages": [
-          "api-reference/shared/profile"
+          "api-reference/shared/profile",
+          {
+            "group": "build",
+            "pages": [
+              {
+                "group": "v2",
+                "pages": [
+                  "api-reference/shared/build/v2/latest"
+                ]
+              }
+            ]
+          }
         ]
       }
     ]
