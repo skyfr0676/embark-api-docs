@@ -148,7 +148,7 @@
         "example": "73171258798549314",
         "description": "The manifest id of the build. If filled, it MUST be the latest version or an error will be thrown.",
         "schema": {
-          "type": "integer"
+          "type": "string"
         }
 
       },
