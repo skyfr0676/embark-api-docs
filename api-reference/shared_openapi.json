@@ -132,6 +132,125 @@
           }
         }
       }
+    },
+    "/shared/build/v2/latest": {
+      "post": {
+        "description": "Return the latest build ID available.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PlatformHeader"
+          },
+          {
+            "$ref": "#/components/parameters/UserAgentHeader"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "appId": {
+                  "description": "The application ID of the game.",
+                  "type": "string",
+                  "required": true,
+                  "enum": [2073850]
+                },
+                "storeDeploymentTarget": {
+                  "description": "The store deployment target. For now only 'public' is known.",
+                  "type": "string",
+                  "required": true,
+                  "enum": ["public"]
+                },
+                "buildId": {
+                  "description": "You're latest known build ID. If filled, the backend will send a new parameter: 'updateAvailable' that will be true if the providen build ID exist and is outdated, false if the providen build ID is the latest one or doesn't exist.",
+                  "type": "string",
+                  "required": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Latest Build of the game.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "buildId": {
+                      "description": "The latest build ID.",
+                      "type": "string",
+                      "example": "CL1169805-83A88AB9-BK5065",
+                      "required": true
+                    },
+                    "updateAvailable": {
+                      "description": "Whether the provided build ID is outdated or not. Please take in note that this parameter is only available if you provide a build ID in the request body.",
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A Bad request is providen (bad parameter type or invalid json).",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "can't decode JSON body: EOF"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If storeDeploymentTarget or appId is invalid.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "const": "No build found"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. The request is most likely missing the Authorization header, or the jwt is invalid/expired.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "examples": ["unauthorized", "Jwt is expired", "Jwt verification fails", "Jwt is not in the form of Header.Payload.Signature with two dots and 3 sections"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "A Bad manifest id was provided.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "const": "MANIFEST_IS_FORBIDDEN"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "The method is not allowed. The server is returning nothing.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "const": ""
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
