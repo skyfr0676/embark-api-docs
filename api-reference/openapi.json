@@ -22,18 +22,11 @@
     "/shared/profile": {
       "get": {
         "description": "Returns the current profile connected to the system. Useful to check if the token work (and get the embark ID).",
-        "parameters": {
-          "x-embark-telemetry-client-platform": {
-            "name": "x-embark-telemetry-client-platform",
-            "in": "header",
-            "description": "The platform of the client (eg: Steam, Xbox or PlayStation). This information is used for telemetry and to know which third party service the user is using.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "value": "3"
-            }
-          }
-        },
+        "parameters": [
+          { "$ref": "#/components/parameters/PlatformHeader" },
+            { "$ref": "#/components/parameters/ManifestIdHeader" },
+            { "$ref": "#/components/parameters/UserAgentHeader" }
+        ],
         "responses": {
           "200": {
             "description": "Profile response",
@@ -134,9 +127,47 @@
             }
           },
           "405": {
-            "description": "the ",
+            "description": "The method is not allowed. The server is returning nothing.",
             "content": {}
           }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "PlatformHeader": {
+        "name": "x-embark-manifest-id",
+        "in": "header",
+        "example": "73171258798549314",
+        "description": "The manifest id of the build. If filled, it MUST be the latest version or an error will be thrown.",
+        "schema": {
+          "type": "integer"
+        }
+
+      },
+      "ManifestIdHeader": {
+        "name": "x-embark-telemetry-client-platform",
+        "in": "header",
+        "description": "The platform of the client (eg: Steam, Xbox or PlayStation). This information is used for telemetry and to know which third party service the user is using.",
+        "schema": {
+          "type": "string",
+          "enum": ["3"]
+        }
+      },
+      "UserAgentHeader": {
+        "name": "User-Agent",
+        "in": "header",
+        "example": "Discovery/discovery_10.00.x-CL{{BUILD_ID_FIRST_DIGITS}} (http-legacy) Windows/10.0.19045.1.0.64bit",
+        "description": "The user agent of the game. It's highly recommended to fill something like the example because we don't know if they actually check the user-agent in order to ban bots. It still work without it trough.",
+        "schema": {
+          "type": "string"
         }
       }
     }
