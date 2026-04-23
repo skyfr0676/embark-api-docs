@@ -48,9 +48,8 @@
                       "format": "int64"
                     },
                     "countryCode": {
-                      "description": "The country of the profile",
-                      "type": "integer",
-                      "format": "int64"
+                      "description": "The country code of the profile (ex: FR, EN, US...)",
+                      "type": "string"
                     },
                     "createdAt": {
                       "description": "The date and time when the profile was created",
@@ -129,14 +128,13 @@
               "text/plain": {
                 "schema": {
                   "type": "string",
-                  "example": "MANIFEST_IS_FORBIDDEN"
+                  "const": "MANIFEST_IS_FORBIDDEN"
                 }
               }
             }
           },
-
-          "205": {
-            "description": "Plant deleted",
+          "405": {
+            "description": "the ",
             "content": {}
           }
         }
