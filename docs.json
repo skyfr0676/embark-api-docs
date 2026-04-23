@@ -35,23 +35,9 @@
         ]
       },
       {
-        "tab": "THE FINALS",
-        "pages": [
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          },
-          "api-reference/endpoint/get"
-        ]
-      },
-      {
         "tab": "Shared",
         "pages": [
-          "api-reference/endpoint/shared_profile"
+          "api-reference/shared/profile"
         ]
       }
     ]
