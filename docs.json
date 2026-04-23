@@ -51,7 +51,7 @@
       {
         "tab": "Shared",
         "pages": [
-          "profile"
+          "api-reference/endpoint/shared_profile"
         ]
       }
     ]
