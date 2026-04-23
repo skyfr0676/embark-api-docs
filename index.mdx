@@ -1,0 +1,56 @@
+---
+title: "Embark API Introduction"
+---
+
+This repository provides comprehensive documentation of the private APIs used by **Embark Studios**, uncovered through reverse engineering. Our goal is to map endpoints, data structures, and auth flows to enable the community to build advanced tools and integrations.
+
+<Warning>
+  **Disclaimer:** This project is purely educational and is not affiliated with Embark Studios or Nexon. Use these resources responsibly.
+</Warning>
+
+We currently support [**THE FINALS**](https://store.steampowered.com/app/2073850/THE_FINALS/) and the support of [**ARC Raiders**](https://store.steampowered.com/app/1808500/ARC_Raiders/) is planned.
+
+<Check>
+  The latest Build ID at the time of 23/04/26 19:50 is: **CL1169805-83A88AB9-BK5065**
+</Check>
+
+## Conventions
+
+The base URL to send all API requests is `https://api-gateway.europe.es-dis.net/v1/`. HTTPS is required for all API requests.
+
+The Embark API follows RESTful conventions when possible, with most operations performed via `GET` or `POST `requests on page and database resources. Request and response bodies are encoded as JSON.
+
+## Authentication
+
+> More information [here](/authentification).
+
+<Steps>
+  <Step title="Get a steam refresh token trough steam.">
+  </Step>
+  <Step title="With Steam, get an App Ticket">
+  </Step>
+  <Step title="Get an Embark Auth Token">
+  </Step>
+  <Step title="Enjoy!">
+  </Step>
+</Steps>
+
+## Request Example
+
+In order
+
+<Danger>
+  We actually don't know if changing the user-agent/headers or spamming the requests will result in a ban, we never tested it so please be careful!
+</Danger>
+
+```shellscript
+curl -X GET 'https://api-gateway.europe.es-dis.net/v1/shared/profile' \
+  -H 'Authorization: Bearer {{AUTH_TOKEN}}' 
+  -H 'User-Agent: Discovery/discovery_10.00.x-CL1169805 (http-legacy) Windows/10.0.19045.1.0.64bit' 
+  -H 'x-embark-request-id: {{RANDOM_ID}}'
+  -H 'x-embark-manifest-id: "{{MANIFEST_ID}}"'
+  -H 'x-embark-telemetry-client-platform: "3"'
+  -H 'Accept: "*/*"',
+  -H 'Accept-Encoding: "gzip"'
+  -H 'Content-Type: application/json'
+```
